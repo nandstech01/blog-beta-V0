@@ -1,0 +1,21 @@
+{
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript",
+    "javascript": "javascript",
+    "html": "HTML",
+    "css": "css"
+  },
+  "tailwindCSS.experimental.classRegex": [],
+  "tailwindCSS.validate": true,
+  "css.customData": [".vscode/css-data.json"]
+} 

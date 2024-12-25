@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* レイアウトのスタイル */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding-top: 1rem;
+}
+
+/* 記事コンテンツのスタイル */
+.article-content {
+  max-width: none;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+/* ソーシャルアイコン上のリード文を非表示 */
+.mb-8 > .text-xl.text-gray-600.mb-6 {
+  display: none;
+}
+
+/* 見出しのスタイル */
+.article-content h2 {
+  position: relative;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  border-left: 4px solid #3b82f6; /* ブルー */
+  background: linear-gradient(to right, #f0f9ff, white); /* 薄いブルーのグラデーション */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Proseのデフォルトの見出しスタイルを上書き */
+.prose h2 {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+
+.prose h2::before {
+  display: none !important;
+}
+
+/* 上部の細いバーを削除 */
+.article-content h2::before {
+  display: none;
+}
+
+.article-content h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #374151;
+  border-bottom: 2px solid #dbeafe;
+  padding-bottom: 0.5rem;
+}
+
+.article-content h4 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+}
+
+/* 段落のスタイル */
+.article-content p {
+  color: #374151;
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* リストのスタイル */
+.article-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content ul li {
+  color: #374151;
+}
+
+/* 目次のスタイル */
+.toc {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.toc summary {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.toc a {
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: block;
+  padding: 0.75rem 0;
+}
+
+.toc a:hover {
+  color: #1d4ed8;
+}
+
+/* 目次の不要な装飾を削除 */
+.toc a::before {
+  display: none;
+}
+
+/* 目次のリストスタイルを削除 */
+.toc nav {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* 太字のスタイル */
+.article-content strong {
+  font-weight: bold;
+  color: #d11515;
+  text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.1); /* 微細なテキストシャドウ */
+}
+
+/* 太字のホバー効果 */
+.article-content strong:hover {
+  color: #c21313;
+  transition: color 0.2s ease;
+}
+
+/* 段落内の太字 */
+.article-content p strong {
+  border-bottom: 2px solid #d11515;
+}
+
+/* リスト内の太字 */
+.article-content li strong {
+  border-bottom: 2px solid #d11515;
+}
+
+/* 波紋アニメーション */
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-ripple-1 { animation: ripple 4s infinite ease-out; }
+.animate-ripple-2 { animation: ripple 4s infinite ease-out 1.3s; }
+.animate-ripple-3 { animation: ripple 4s infinite ease-out 2.6s; }
+
+/* タイトルのスライドアップアニメーション */
+@keyframes titleSlideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-title-slide-up {
+  animation: titleSlideUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* サブタイトルのフェードイン */
+@keyframes subtitleFadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-subtitle-fade-in {
+  animation: subtitleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+/* テキストのフェードイン */
+@keyframes textFadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-text-fade-in {
+  animation: textFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
+}
+
+/* アンダーラインアニメーション */
+@keyframes underline {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+.animate-underline {
+  animation: underline 1.5s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+}
+
+/* キラキラエフェクト */
+.sparkle-1, .sparkle-2, .sparkle-3 {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: 0;
+}
+
+.sparkle-1 { animation: sparkle 3s infinite 0s; top: 20%; left: 30%; }
+.sparkle-2 { animation: sparkle 3s infinite 1s; top: 60%; left: 70%; }
+.sparkle-3 { animation: sparkle 3s infinite 2s; top: 40%; left: 50%; }
+
+@keyframes sparkle {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* グリッドパターン */
+.bg-grid-pattern {
+  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* プロフェッショナルなグリッドパターン */
+.bg-professional-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* スライドアニメーション */
+@keyframes slideRight {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+.animate-slide-right {
+  animation: slideRight 3s linear infinite;
+}
+
+.animate-slide-left {
+  animation: slideLeft 3s linear infinite;
+}
+
+/* パルスアニメーション */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 4s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+/* テキスト強調アニメーション */
+@keyframes emphasis {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.animate-emphasis {
+  animation: emphasis 2s ease-in-out infinite;
+}
+
+/* その他のスタイルは変更なし */
