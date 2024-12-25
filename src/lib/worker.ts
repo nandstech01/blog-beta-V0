@@ -1,49 +1,34 @@
-import { Worker } from 'bullmq';
-import { logger } from './logger';
-import { QUEUE_NAME, JobData } from './queue';
-import { generateArticle } from './articleGenerator';
+import { logger } from '@/lib/logger';
+import { queue } from '@/lib/queue';
+import { processArticleJob } from '@/workers/articleGenerator';
 
-// ワーカーの設定
-const worker = new Worker<JobData>(QUEUE_NAME, async (job) => {
+// ワーカーの初期化と実行
+export async function startWorker() {
   try {
-    if (!job?.id) {
-      throw new Error('ジョブIDが見つかりません');
-    }
+    logger.info('ワーカーを開始します');
 
-    logger.info('ジョブの処理を開始', { jobId: job.id });
-    
-    const result = await generateArticle(job.data, job.id.toString());
-    
-    logger.info('ジョブの処理が完了', { 
-      jobId: job.id,
-      contentLength: result.content.length
-    });
-    
-    return result;
+    while (true) {
+      // 待機中のジョブを取得
+      const jobs = await queue.getWaiting();
+      
+      for (const job of jobs) {
+        try {
+          await processArticleJob(job);
+        } catch (error) {
+          logger.error('ジョブの処理に失敗', {
+            jobId: job.id,
+            error: error instanceof Error ? error.message : String(error)
+          });
+        }
+      }
+
+      // 1秒待機してから次のポーリング
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
   } catch (error) {
-    logger.error('ジョブの処理中にエラーが発生', {
-      jobId: job?.id,
-      error: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined
+    logger.error('ワーカーの実行中にエラーが発生', {
+      error: error instanceof Error ? error.message : String(error)
     });
     throw error;
   }
-});
-
-worker.on('completed', (job) => {
-  if (!job?.id) {
-    logger.warn('完了したジョブのIDが見つかりません');
-    return;
-  }
-  logger.info('ジョブが正常に完了', { jobId: job.id });
-});
-
-worker.on('failed', (job, error) => {
-  logger.error('ジョブが失敗', {
-    jobId: job?.id,
-    error: error instanceof Error ? error.message : String(error),
-    stack: error instanceof Error ? error.stack : undefined
-  });
-});
-
-export { worker }; 
+} 
