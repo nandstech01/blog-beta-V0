@@ -15,7 +15,7 @@ const nextConfig = {
       timeout: 60000, // 60秒に統一
     }
   },
-  serverExternalPackages: ['@anthropic-ai/sdk', 'bullmq'],
+  serverExternalPackages: ['@anthropic-ai/sdk'],
   typescript: {
     ignoreBuildErrors: true
   },
